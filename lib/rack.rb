@@ -75,16 +75,16 @@ module Rack
   RACK_METHODOVERRIDE_ORIGINAL_METHOD = 'rack.methodoverride.original_method'
   RACK_SESSION_UNPACKED_COOKIE_DATA   = 'rack.session.unpacked_cookie_data'
 
-  autoload :Builder, "rack/builder"
-  autoload :BodyProxy, "rack/body_proxy"
-  autoload :Cascade, "rack/cascade"
-  autoload :Chunked, "rack/chunked"
-  autoload :CommonLogger, "rack/common_logger"
-  autoload :ConditionalGet, "rack/conditional_get"
+  autoload :Builder, "rack/builder" # rack 的builder类，用来根据配置文件加载rack程序
+  autoload :BodyProxy, "rack/body_proxy"  # response 的 body 代理，提供了body的一些方式，在response的body被完全发送到client之后会执行
+  autoload :Cascade, "rack/cascade"  # 用来串联各个 app
+  autoload :Chunked, "rack/chunked"  # 用来处理body
+  autoload :CommonLogger, "rack/common_logger"  # logger
+  autoload :ConditionalGet, "rack/conditional_get"  # 满足条件的GET，利用headers中的If-None-Match If-Modified-Since Last-Modified来区分是否进行GET动作，否则返回304
   autoload :Config, "rack/config"
-  autoload :ContentLength, "rack/content_length"
-  autoload :ContentType, "rack/content_type"
-  autoload :ETag, "rack/etag"
+  autoload :ContentLength, "rack/content_length"  # 计算body的content_length 并写入headers中
+  autoload :ContentType, "rack/content_type"    # 将content_type 并写入headers中
+  autoload :ETag, "rack/etag"                   # 在headers中写入etag内容
   autoload :Events, "rack/events"
   autoload :File, "rack/file"
   autoload :Files, "rack/files"

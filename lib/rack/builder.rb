@@ -59,10 +59,11 @@ module Rack
     #   # requires ./my_app.rb, which should be in the
     #   # process's current directory.  After requiring,
     #   # assumes MyApp constant contains Rack application
+    #  解析应用中的config文件，首先找扩展名为.ru 的文件
     def self.parse_file(path)
-      if path.end_with?('.ru')
+      if path.end_with?('.ru')   #  如果是 .ru 结尾的文件，就调用load_file方法
         return self.load_file(path)
-      else
+      else                       # 如果没有，就require传入的path
         require path
         return Object.const_get(::File.basename(path, '.rb').split('_').map(&:capitalize).join(''))
       end
@@ -87,7 +88,7 @@ module Rack
       config = ::File.read(path)
       config.slice!(/\A#{UTF_8_BOM}/) if config.encoding == Encoding::UTF_8
 
-      if config[/^#\\(.*)/]
+      if config[/^#\\(.*)/]   # 返回字符串中符合 /^#\\(.*)/ 的字符
         fail "Parsing options from the first comment line is deprecated: #{path}"
       end
 
